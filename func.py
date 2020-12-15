@@ -1,5 +1,5 @@
 #
-# oke-autoscaler-sk version 1.0.
+# oke-autoscaler version 1.0.
 #
 # Copyright (c) 2020 Oracle, Inc.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
@@ -123,7 +123,7 @@ def get_unsched_pods(node_pool_name, secret):
    """
    # congfigure kubectl for use with oke-autoscale service account:
    #   - add oke-autoscale service account as user definition..
-   response = Popen(['kubectl config set-credentials oke-autoscaler-sk --token=' + secret],
+   response = Popen(['kubectl config set-credentials oke-autoscaler --token=' + secret],
                     shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True
                    )
    output, errors = response.communicate()
@@ -131,7 +131,7 @@ def get_unsched_pods(node_pool_name, secret):
    logging.info("Popen Errors, kubectl config: " + errors)
 
    #   - set context..
-   response = Popen(['kubectl config set-context --current --user=oke-autoscaler-sk'],
+   response = Popen(['kubectl config set-context --current --user=oke-autoscaler'],
                     shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True
                    )
    output, errors = response.communicate()
@@ -164,7 +164,7 @@ def drain_node(lifo_node_name, secret):
 
    return
 
-# oke-autoscaler-sk logic..
+# oke-autoscaler logic..
 def do(signer):
    # configure environment:
    #   - external / user-defined variables..
